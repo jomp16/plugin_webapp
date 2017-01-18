@@ -1,0 +1,24 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.idea/
+classes/
+
+# Config, they contains sensitive info about my stuffs
+config.json
+
+# JRebel
+rebel.xml
+
+# MOTD
+motd/
+
+*.pro
+packet_infos/
+plugins/
+
+*.txt
+
+!server/src/main/resources/ascii_art.txt
