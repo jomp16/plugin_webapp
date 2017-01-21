@@ -1,0 +1,78 @@
+{% extends 'layouts/template.twig' %}
+
+{% block navbar_links %}
+    <ul class="nav navbar-nav">
+        <li>
+            <a href="/">Home</a>
+        </li>
+
+        <li>
+            <a href="/status">Status</a>
+        </li>
+    </ul>
+
+    {% include '../../layouts/navbar/user_info_login_navbar.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Login</div>
+                <div class="panel-body">
+                    {#<form class="form-horizontal" role="form" method="POST" action="/admin/login">
+                        <div class="form-group{{ errors.has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-2 control-label">{{ trans('app/auth.email') }}</label>
+
+                            <div class="col-md-10">
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ old('email') }}" required autofocus>
+
+                                {% if errors.has('email') %}
+                                    <span class="help-block">
+                                        <strong>{{ errors.first('email') }}</strong>
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password"
+                                   class="col-md-2 control-label">{{ trans('app/auth.password') }}</label>
+
+                            <div class="col-md-10">
+                                <input id="password" type="password" class="form-control" name="password" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-2">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember"> {{ trans('app/auth.remember_me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-2">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    {{ trans('app/auth.login') }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-2 col-md-offset-2">
+                                <a href="{{ url('password/reset') }}">
+                                    {{ trans('app/auth.forgot_password') }}
+                                </a>
+                            </div>
+                        </div>
+                    </form>#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

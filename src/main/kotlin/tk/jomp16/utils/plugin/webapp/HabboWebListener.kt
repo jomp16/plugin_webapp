@@ -19,21 +19,24 @@
 
 package tk.jomp16.utils.plugin.webapp
 
-import ro.pippo.core.Pippo
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.context.ConfigurableApplicationContext
 import tk.jomp16.habbo.HabboServer
 import tk.jomp16.utils.plugin.api.PluginListener
 
 @Suppress("unused", "UNUSED_PARAMETER")
 class HabboWebListener : PluginListener() {
-    lateinit private var pippo: Pippo
+    lateinit private var application: ConfigurableApplicationContext
 
     override fun onCreate() {
         super.onCreate()
 
         log.info("Lauching web application...")
 
-        pippo = Pippo(HabboWebApplication())
-        pippo.start(HabboServer.habboConfig.webPort)
+        System.getProperties().put("server.port", HabboServer.habboConfig.webPort)
+
+        application = SpringApplication.run(HabboWebApplication::class.java)
 
         log.info("Web application launched on port {}!", HabboServer.habboConfig.webPort)
     }
@@ -43,8 +46,11 @@ class HabboWebListener : PluginListener() {
 
         log.info("Stopping web application...")
 
-        pippo.stop()
+        if (application.isRunning) SpringApplication.exit(application)
 
         log.info("Stopped web application!")
     }
 }
+
+@SpringBootApplication
+open class HabboWebApplication
