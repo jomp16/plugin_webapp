@@ -37,13 +37,15 @@ dependencies {
 
     //noinspection GrUnresolvedAccess
     compile "com.fasterxml.jackson.core:jackson-annotations:$jackson_version"
+
     //noinspection GrUnresolvedAccess
     compile "com.fasterxml.jackson.module:jackson-module-afterburner:$jackson_version"
+
     compile 'org.jboss.logging:jboss-logging:3.3.1.Final'
-    compile 'io.undertow:undertow-core:1.4.11.Final'
-    compile 'io.undertow:undertow-servlet:1.4.11.Final'
-    compile 'org.jboss.xnio:xnio-api:3.4.3.Final'
-    compile 'org.jboss.xnio:xnio-nio:3.4.3.Final'
+    compile 'io.undertow:undertow-core:1.4.12.Final'
+    compile 'io.undertow:undertow-servlet:1.4.12.Final'
+    compile 'org.jboss.xnio:xnio-api:3.4.5.Final'
+    compile 'org.jboss.xnio:xnio-nio:3.4.5.Final'
 }
 
 apply from: "$rootDir/plugins_src/common_plugins.gradle"

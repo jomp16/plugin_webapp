@@ -19,8 +19,6 @@
 
 package tk.jomp16.utils.plugin.webapp
 
-import net.sf.ehcache.Ehcache
-import net.sf.ehcache.Element
 import ro.pippo.core.Application
 import tk.jomp16.habbo.BuildConfig
 import tk.jomp16.habbo.HabboServer
@@ -28,7 +26,6 @@ import tk.jomp16.habbo.database.information.UserInformationDao
 import tk.jomp16.habbo.game.room.Room
 import tk.jomp16.habbo.game.user.information.UserInformation
 import tk.jomp16.habbo.imaging.GroupBadge
-import tk.jomp16.habbo.kotlin.addAndGetEhCache
 import tk.jomp16.habbo.util.Utils
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -37,13 +34,13 @@ import java.util.concurrent.TimeUnit
 import javax.imageio.ImageIO
 
 class HabboWebApplication : Application() {
-    lateinit var groupBadgeCache: Ehcache
+    lateinit var groupBadgeCache: MutableMap<String, ByteArray>
     lateinit var groupBadge: GroupBadge
 
     override fun onInit() {
         super.onInit()
 
-        groupBadgeCache = HabboServer.cacheManager.addAndGetEhCache("groupBadgeCache")
+        groupBadgeCache = HashMap()
         groupBadge = GroupBadge(HabboServer.habboGame.groupManager.groupBadgesBases, HabboServer.habboGame.groupManager.groupBaseColors, HabboServer.habboGame.groupManager.groupBadgesSymbols, HabboServer.habboGame.groupManager.groupBadgeSymbolColors)
 
         GET("/api/v1/users/connected", {
@@ -124,27 +121,21 @@ class HabboWebApplication : Application() {
             val badgeCode = badgeCodeFile.nameWithoutExtension
             val extension = if (badgeCodeFile.extension.isEmpty()) "gif" else badgeCodeFile.extension
 
-            if (!groupBadgeCache.isKeyInCache(badgeCode)) {
+            if (!groupBadgeCache.containsKey(badgeCode)) {
                 val badgeImage = groupBadge.getGroupBadge(badgeCode)
 
                 val byteArrayOutputStream = ByteArrayOutputStream()
 
                 ImageIO.write(badgeImage, extension, byteArrayOutputStream)
 
-                groupBadgeCache.put(Element("$badgeCode.$extension", byteArrayOutputStream.toByteArray()))
+                groupBadgeCache.put("$badgeCode.$extension", byteArrayOutputStream.toByteArray())
             }
 
-            val badgeImageByteArray = groupBadgeCache[badgeCodeFile.name]!!.objectValue as ByteArray
+            val badgeImageByteArray = groupBadgeCache[badgeCodeFile.name]
 
             it.response.contentType("image/$extension")
             it.response.characterEncoding(null)
             it.response.outputStream.write(badgeImageByteArray)
         })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        HabboServer.cacheManager.removeCache("groupBadgeCache")
     }
 }
