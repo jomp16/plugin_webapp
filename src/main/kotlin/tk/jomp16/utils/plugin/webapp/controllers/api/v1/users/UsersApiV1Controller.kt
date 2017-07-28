@@ -31,7 +31,9 @@ class UsersApiV1Controller {
     fun getUserById(@PathVariable("id") userId: Int) = getUserInfoMap(UserInformationDao.getUserInformationById(userId))
 
     private fun getUserInfoMap(userInformation: UserInformation?): Map<String, Any> =
-            if (userInformation == null) mapOf("error" to "User not found")
+            if (userInformation == null) mapOf(
+                    "error" to "User not found"
+            )
             else mapOf(
                     "id" to userInformation.id,
                     "username" to userInformation.username,

@@ -53,7 +53,6 @@ class HabboImagingApiV1Controller {
 
         if (!badgeCache.containsKey(key)) {
             val badgeImage = groupBadge.getGroupBadge(badgeCode)
-
             val byteArrayOutputStream = ByteArrayOutputStream()
 
             ImageIO.write(badgeImage, extension, byteArrayOutputStream)
