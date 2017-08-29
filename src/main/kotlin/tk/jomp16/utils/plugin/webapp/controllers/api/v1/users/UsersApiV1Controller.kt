@@ -22,7 +22,7 @@ package tk.jomp16.utils.plugin.webapp.controllers.api.v1.users
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import tk.jomp16.habbo.database.information.UserInformationDao
+import tk.jomp16.habbo.database.user.UserInformationDao
 import tk.jomp16.habbo.game.user.information.UserInformation
 
 @RestController
