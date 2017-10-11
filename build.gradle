@@ -45,8 +45,8 @@ dependencies {
     //noinspection GrUnresolvedAccess
     compile "org.springframework.boot:spring-boot-starter-undertow:$springBootVersion"
 
-    compile 'org.jboss.xnio:xnio-api:3.5.1.Final'
-    compile 'org.jboss.xnio:xnio-nio:3.5.1.Final'
+    compile 'org.jboss.xnio:xnio-api:3.5.2.Final'
+    compile 'org.jboss.xnio:xnio-nio:3.5.2.Final'
 }
 
 apply from: "$rootDir/plugins_src/common_plugins.gradle"
