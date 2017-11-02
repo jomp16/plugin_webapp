@@ -19,7 +19,7 @@
 
 group "tk.jomp16.utils.plugin.webapp"
 
-ext.springBootVersion = "1.5.7.RELEASE"
+ext.springBootVersion = "1.5.8.RELEASE"
 
 configurations.compile {
     //noinspection GrUnresolvedAccess
@@ -45,8 +45,8 @@ dependencies {
     //noinspection GrUnresolvedAccess
     compile "org.springframework.boot:spring-boot-starter-undertow:$springBootVersion"
 
-    compile 'org.jboss.xnio:xnio-api:3.5.2.Final'
-    compile 'org.jboss.xnio:xnio-nio:3.5.2.Final'
+    compile 'org.jboss.xnio:xnio-api:3.5.4.Final'
+    compile 'org.jboss.xnio:xnio-nio:3.5.4.Final'
 }
 
 apply from: "$rootDir/plugins_src/common_plugins.gradle"

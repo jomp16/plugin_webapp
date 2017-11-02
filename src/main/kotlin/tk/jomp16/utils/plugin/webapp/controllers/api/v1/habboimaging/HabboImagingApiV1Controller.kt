@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 2015-2017 jomp16
  *
- * This file is part of habbo_r63b_v2.
+ * This file is part of plugin_webapp.
  *
- * habbo_r63b_v2 is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * plugin_webapp is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * habbo_r63b_v2 is distributed in the hope that it will be useful,
+ * plugin_webapp is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with habbo_r63b_v2. If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with plugin_webapp. If not, see <http://www.gnu.org/licenses/>.
  */
 
 package tk.jomp16.utils.plugin.webapp.controllers.api.v1.habboimaging
@@ -40,11 +40,11 @@ class HabboImagingApiV1Controller {
             HabboServer.habboGame.groupManager.groupBadgeSymbolColors
     )
 
-    @RequestMapping(value = "/api/v1/habbo-imaging/badge/{badge_code}.gif", produces = arrayOf(MediaType.IMAGE_GIF_VALUE), method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.gif"], produces = [(MediaType.IMAGE_GIF_VALUE)], method = [(RequestMethod.GET)])
     @ResponseBody
     fun getBadgeGif(@PathVariable("badge_code") badgeCode: String) = getBadgeImage(badgeCode, "gif")
 
-    @RequestMapping(value = "/api/v1/habbo-imaging/badge/{badge_code}.png", produces = arrayOf(MediaType.IMAGE_PNG_VALUE), method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.png"], produces = [(MediaType.IMAGE_PNG_VALUE)], method = [(RequestMethod.GET)])
     @ResponseBody
     fun getBadgePng(@PathVariable("badge_code") badgeCode: String) = getBadgeImage(badgeCode, "png")
 
