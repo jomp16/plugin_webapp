@@ -32,7 +32,7 @@ import javax.imageio.ImageIO
 
 @Controller
 class HabboImagingApiV1Controller {
-    private val badgeCache: MutableMap<String, ByteArray> = HashMap()
+    private val badgeCache: MutableMap<String, ByteArray> = mutableMapOf()
     private val groupBadge = GroupBadge(
             HabboServer.habboGame.groupManager.groupBadgesBases,
             HabboServer.habboGame.groupManager.groupBaseColors,
