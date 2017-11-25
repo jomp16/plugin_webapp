@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2017 jomp16
+ * Copyright (C) 2015-2017 jomp16 <root@rwx.ovh>
  *
  * This file is part of plugin_webapp.
  *
@@ -17,7 +17,7 @@
  * along with plugin_webapp. If not, see <http://www.gnu.org/licenses/>.
  */
 
-group "tk.jomp16.utils.plugin.webapp"
+group "ovh.rwx.utils.plugin.webapp"
 
 ext.springBootVersion = "1.5.8.RELEASE"
 

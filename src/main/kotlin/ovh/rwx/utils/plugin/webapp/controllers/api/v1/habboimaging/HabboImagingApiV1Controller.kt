@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2017 jomp16
+ * Copyright (C) 2015-2017 jomp16 <root@rwx.ovh>
  *
  * This file is part of plugin_webapp.
  *
@@ -17,7 +17,7 @@
  * along with plugin_webapp. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package tk.jomp16.utils.plugin.webapp.controllers.api.v1.habboimaging
+package ovh.rwx.utils.plugin.webapp.controllers.api.v1.habboimaging
 
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
-import tk.jomp16.habbo.HabboServer
-import tk.jomp16.habbo.imaging.GroupBadge
+import ovh.rwx.habbo.HabboServer
+import ovh.rwx.habbo.imaging.GroupBadge
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
