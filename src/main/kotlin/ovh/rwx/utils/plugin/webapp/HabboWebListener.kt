@@ -34,6 +34,7 @@ class HabboWebListener : PluginListener() {
 
         log.info("Lauching web application...")
 
+        System.getProperties().put("org.springframework.boot.logging.LoggingSystem", "none")
         System.getProperties().put("server.port", HabboServer.habboConfig.webPort)
 
         application = SpringApplication.run(HabboWebApplication::class.java)

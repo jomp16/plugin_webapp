@@ -33,11 +33,6 @@ dependencies {
     compile project(":habbo_imaging")
 
     //noinspection GrUnresolvedAccess
-    compile("org.springframework.boot:spring-boot-starter-actuator:$springBootVersion") {
-        exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
-    }
-
-    //noinspection GrUnresolvedAccess
     compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion") {
         exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
     }
