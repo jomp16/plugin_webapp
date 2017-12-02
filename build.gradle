@@ -19,7 +19,7 @@
 
 group "ovh.rwx.utils.plugin.webapp"
 
-ext.springBootVersion = "1.5.8.RELEASE"
+ext.springBootVersion = "1.5.9.RELEASE"
 
 configurations.compile {
     //noinspection GrUnresolvedAccess
