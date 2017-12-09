@@ -36,8 +36,7 @@ class HabboImagingApiV1Controller {
     private val groupBadge = GroupBadge(
             HabboServer.habboGame.groupManager.groupBadgesBases,
             HabboServer.habboGame.groupManager.groupBaseColors,
-            HabboServer.habboGame.groupManager.groupBadgesSymbols,
-            HabboServer.habboGame.groupManager.groupBadgeSymbolColors
+            HabboServer.habboGame.groupManager.groupBadgesSymbols
     )
 
     @RequestMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.gif"], produces = [(MediaType.IMAGE_GIF_VALUE)], method = [(RequestMethod.GET)])
