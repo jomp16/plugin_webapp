@@ -20,9 +20,8 @@
 package ovh.rwx.utils.plugin.webapp.controllers.api.camera.thumbnail
 
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 import ovh.rwx.habbo.HabboServer
 import ovh.rwx.utils.plugin.webapp.controllers.api.camera.CameraImageNotFoundException
@@ -30,7 +29,7 @@ import java.nio.file.Files
 
 @Controller
 class NavigatorThumbnailController {
-    @RequestMapping(value = ["/api/camera/navigator-thumbnail/{room_id}.png"], method = [(RequestMethod.GET)])
+    @GetMapping(value = ["/api/camera/navigator-thumbnail/{room_id}.png"])
     @ResponseBody
     fun navigatorThumbnail(@PathVariable("room_id") roomId: Int): ByteArray {
         val cameraThumbnailPath = HabboServer.habboGame.cameraManager.cameraNavigatorThumbnailDirectory.resolve("$roomId.png")

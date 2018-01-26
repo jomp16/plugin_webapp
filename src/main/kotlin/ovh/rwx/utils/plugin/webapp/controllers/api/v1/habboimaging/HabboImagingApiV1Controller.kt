@@ -21,9 +21,8 @@ package ovh.rwx.utils.plugin.webapp.controllers.api.v1.habboimaging
 
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
 import ovh.rwx.habbo.HabboServer
 import ovh.rwx.habbo.imaging.GroupBadge
@@ -39,11 +38,11 @@ class HabboImagingApiV1Controller {
             HabboServer.habboGame.groupManager.groupBadgesSymbols
     )
 
-    @RequestMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.gif"], produces = [(MediaType.IMAGE_GIF_VALUE)], method = [(RequestMethod.GET)])
+    @GetMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.gif"], produces = [(MediaType.IMAGE_GIF_VALUE)])
     @ResponseBody
     fun getBadgeGif(@PathVariable("badge_code") badgeCode: String) = getBadgeImage(badgeCode, "gif")
 
-    @RequestMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.png"], produces = [(MediaType.IMAGE_PNG_VALUE)], method = [(RequestMethod.GET)])
+    @GetMapping(value = ["/api/v1/habbo-imaging/badge/{badge_code}.png"], produces = [(MediaType.IMAGE_PNG_VALUE)])
     @ResponseBody
     fun getBadgePng(@PathVariable("badge_code") badgeCode: String) = getBadgeImage(badgeCode, "png")
 
@@ -56,7 +55,7 @@ class HabboImagingApiV1Controller {
 
             ImageIO.write(badgeImage, extension, byteArrayOutputStream)
 
-            badgeCache.put(key, byteArrayOutputStream.toByteArray())
+            badgeCache[key] = byteArrayOutputStream.toByteArray()
         }
 
         return badgeCache[key]!!

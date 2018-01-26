@@ -19,6 +19,7 @@
 
 package ovh.rwx.utils.plugin.webapp.controllers.api.v1.status
 
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ovh.rwx.habbo.BuildConfig
@@ -29,7 +30,7 @@ import java.util.concurrent.TimeUnit
 
 @RestController
 class StatusApiV1Controller {
-    @RequestMapping("/api/v1/status")
+    @GetMapping("/api/v1/status")
     fun serverStatus(): Map<String, Any> = mapOf(
             "version" to BuildConfig.VERSION,
             "used_ram" to Utils.ramUsageString,

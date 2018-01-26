@@ -27,15 +27,15 @@ import ovh.rwx.utils.plugin.api.PluginListener
 
 @Suppress("unused", "UNUSED_PARAMETER")
 class HabboWebListener : PluginListener() {
-    lateinit private var application: ConfigurableApplicationContext
+    private lateinit var application: ConfigurableApplicationContext
 
     override fun onCreate() {
         super.onCreate()
 
         log.info("Lauching web application...")
 
-        System.getProperties().put("org.springframework.boot.logging.LoggingSystem", "none")
-        System.getProperties().put("server.port", HabboServer.habboConfig.webPort)
+        System.getProperties()["org.springframework.boot.logging.LoggingSystem"] = "none"
+        System.getProperties()["server.port"] = HabboServer.habboConfig.webPort
 
         application = SpringApplication.run(HabboWebApplication::class.java)
 

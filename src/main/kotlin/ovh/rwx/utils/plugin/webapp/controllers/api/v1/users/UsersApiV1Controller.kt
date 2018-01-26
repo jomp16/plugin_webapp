@@ -19,15 +19,15 @@
 
 package ovh.rwx.utils.plugin.webapp.controllers.api.v1.users
 
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ovh.rwx.habbo.database.user.UserInformationDao
 import ovh.rwx.habbo.game.user.information.UserInformation
 
 @RestController
 class UsersApiV1Controller {
-    @RequestMapping("/api/v1/users/{id}")
+    @GetMapping("/api/v1/users/{id}")
     fun getUserById(@PathVariable("id") userId: Int) = getUserInfoMap(UserInformationDao.getUserInformationById(userId))
 
     private fun getUserInfoMap(userInformation: UserInformation?): Map<String, Any> =

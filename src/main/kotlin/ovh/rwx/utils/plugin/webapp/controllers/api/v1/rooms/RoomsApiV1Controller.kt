@@ -19,18 +19,18 @@
 
 package ovh.rwx.utils.plugin.webapp.controllers.api.v1.rooms
 
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ovh.rwx.habbo.HabboServer
 import ovh.rwx.habbo.game.room.Room
 
 @RestController
 class RoomsApiV1Controller {
-    @RequestMapping("/api/v1/rooms")
+    @GetMapping("/api/v1/rooms")
     fun getRooms(): List<Int> = HabboServer.habboGame.roomManager.rooms.values.map { it.roomData.id }
 
-    @RequestMapping("/api/v1/rooms/{id}")
+    @GetMapping("/api/v1/rooms/{id}")
     fun getRoomInfoById(@PathVariable("id") roomId: Int): Map<String, Any> = getRoomInfoMap(HabboServer.habboGame.roomManager.rooms[roomId])
 
     private fun getRoomInfoMap(room: Room?) =
