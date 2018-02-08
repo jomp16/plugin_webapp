@@ -20,7 +20,6 @@
 package ovh.rwx.utils.plugin.webapp.controllers.api.v1.status
 
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ovh.rwx.habbo.BuildConfig
 import ovh.rwx.habbo.HabboServer
