@@ -19,6 +19,7 @@
 
 package ovh.rwx.utils.plugin.webapp.controllers.api.camera
 
+import org.springframework.http.MediaType
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -28,7 +29,7 @@ import java.nio.file.Files
 
 @Controller
 class CameraController {
-    @GetMapping(value = ["/api/camera/{type}/{username}/{camera_preview}.png"])
+    @GetMapping(value = ["/api/camera/{type}/{username}/{camera_preview}.png"], produces = [(MediaType.IMAGE_PNG_VALUE)])
     @ResponseBody
     fun cameraPreview(@PathVariable("type") type: String, @PathVariable("username") username: String, @PathVariable("camera_preview") cameraPreviewName: String): ByteArray {
         if (type != "preview" && type != "purchased") throw CameraMethodNotImplementedException()
