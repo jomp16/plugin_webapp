@@ -97,4 +97,18 @@ class PocketHabboController {
 
         return ResponseEntity.ok().body(null)
     }
+
+    @PostMapping(value = ["/api/log/crash", "/api/log/error"])
+    fun crash(@RequestBody payload: Map<String, Any>): ResponseEntity<Nothing> {
+        log.error("PocketHabbo crash! ${payload["message"]}")
+
+        return ResponseEntity.ok().body(null)
+    }
+
+    @PostMapping("/api/log/loginstep")
+    fun loginstep(@RequestBody payload: Map<String, Any>): ResponseEntity<Nothing> {
+        log.debug(payload.entries.joinToString())
+
+        return ResponseEntity.ok().body(null)
+    }
 }
