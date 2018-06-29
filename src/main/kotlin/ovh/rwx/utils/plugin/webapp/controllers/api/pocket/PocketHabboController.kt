@@ -20,6 +20,8 @@
 package ovh.rwx.utils.plugin.webapp.controllers.api.pocket
 
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import ovh.rwx.habbo.database.user.UserInformationDao
 import ovh.rwx.habbo.database.user.UserStatsDao
@@ -37,45 +39,48 @@ class PocketHabboController {
 
     @GetMapping("/api/public/info/hello")
     fun helloWorld(): Map<String, String> {
-        log.debug("Got hello!")
-
         return mapOf("message" to "hello world")
     }
 
     @PostMapping("/api/public/authentication/login")
-    fun login(@RequestBody loginPocketHabbo: LoginPocketHabbo, httpSession: HttpSession): Map<String, String> {
-        log.debug("Got login!")
-
+    fun login(@RequestBody loginPocketHabbo: LoginPocketHabbo, httpSession: HttpSession): ResponseEntity<Map<String, Any>>? {
         val userInformation = UserInformationDao.getUserInformationByEmailAndPassword(loginPocketHabbo.email, loginPocketHabbo.password)
-                ?: return mapOf("message" to "falha-login")
+                ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(mapOf("message" to "login.invalid_password", "captcha" to false))
 
         httpSession.setAttribute("userInformation", userInformation)
 
-        return mapOf("message" to "ok")
+        return ResponseEntity.ok().body(null)
+    }
+
+    @PostMapping("/api/public/authentication/logout")
+    fun logout(httpSession: HttpSession): ResponseEntity<Nothing> {
+        httpSession.invalidate()
+
+        return ResponseEntity.ok().body(null)
     }
 
     @GetMapping("/api/ssotoken")
-    fun ssoToken(@SessionAttribute("userInformation") userInformation: UserInformation?): Map<String, String> {
+    fun ssoToken(@SessionAttribute("userInformation") userInformation: UserInformation?): ResponseEntity<Map<String, Any>>? {
         log.debug("Got ssotoken!")
 
-        if (userInformation == null) return mapOf("message" to "error-auth")
+        if (userInformation == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(mapOf("message" to "login.invalid_password", "captcha" to false))
 
         val ssoToken = UUID.randomUUID().toString()
 
         UserInformationDao.updateAuthTicket(userInformation, ssoToken)
 
-        return mapOf("ssoToken" to ssoToken)
+        return ResponseEntity.ok().body(mapOf("ssoToken" to ssoToken))
     }
 
     @GetMapping("/api/user/avatars")
-    fun avatars(@SessionAttribute("userInformation") userInformation: UserInformation?): List<AvatarPocketHabbo> {
+    fun avatars(@SessionAttribute("userInformation") userInformation: UserInformation?): ResponseEntity<List<AvatarPocketHabbo>>? {
         log.debug("Got avatar!")
 
-        if (userInformation == null) return emptyList()
+        if (userInformation == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(emptyList())
 
         val userStats = UserStatsDao.getUserStats(userInformation.id)
 
-        return listOf(AvatarPocketHabbo(
+        return ResponseEntity.ok().body(listOf(AvatarPocketHabbo(
                 userInformation.id,
                 userInformation.figure,
                 userInformation.motto,
@@ -84,6 +89,11 @@ class PocketHabboController {
                 UUID.randomUUID().toString(),
                 userStats.lastOnline.toEpochSecond(OffsetDateTime.now().offset),
                 Instant.now().epochSecond
-        ))
+        )))
+    }
+
+    @PostMapping("/api/user/avatars/select")
+    fun selectAvatar(): ResponseEntity<Nothing> {
+        return ResponseEntity.ok().body(null)
     }
 }
