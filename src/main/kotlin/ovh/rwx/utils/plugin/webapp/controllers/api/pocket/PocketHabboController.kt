@@ -61,8 +61,6 @@ class PocketHabboController {
 
     @GetMapping("/api/ssotoken")
     fun ssoToken(@SessionAttribute("userInformation") userInformation: UserInformation?): ResponseEntity<Map<String, Any>>? {
-        log.debug("Got ssotoken!")
-
         if (userInformation == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(mapOf("message" to "login.invalid_password", "captcha" to false))
 
         val ssoToken = UUID.randomUUID().toString()
@@ -74,8 +72,6 @@ class PocketHabboController {
 
     @GetMapping("/api/user/avatars")
     fun avatars(@SessionAttribute("userInformation") userInformation: UserInformation?): ResponseEntity<List<AvatarPocketHabbo>>? {
-        log.debug("Got avatar!")
-
         if (userInformation == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(emptyList())
 
         val userStats = UserStatsDao.getUserStats(userInformation.id)
@@ -93,7 +89,12 @@ class PocketHabboController {
     }
 
     @PostMapping("/api/user/avatars/select")
-    fun selectAvatar(): ResponseEntity<Nothing> {
+    fun selectAvatar(@SessionAttribute("userInformation") userInformation: UserInformation?, @RequestBody payload: Map<String, Any>): ResponseEntity<Nothing> {
+        // it receives uniqueId
+        if (userInformation == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
+
+        val uniqueId = payload["uniqueId"] ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
+
         return ResponseEntity.ok().body(null)
     }
 }
