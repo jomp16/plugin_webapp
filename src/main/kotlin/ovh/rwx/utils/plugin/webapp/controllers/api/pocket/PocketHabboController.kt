@@ -22,8 +22,12 @@ package ovh.rwx.utils.plugin.webapp.controllers.api.pocket
 import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 import ovh.rwx.habbo.database.user.UserInformationDao
+import ovh.rwx.habbo.database.user.UserStatsDao
 import ovh.rwx.habbo.game.user.information.UserInformation
+import ovh.rwx.utils.plugin.webapp.controllers.api.pocket.json.AvatarPocketHabbo
 import ovh.rwx.utils.plugin.webapp.controllers.api.pocket.json.LoginPocketHabbo
+import java.time.Instant
+import java.time.OffsetDateTime
 import java.util.*
 import javax.servlet.http.HttpSession
 
@@ -61,5 +65,25 @@ class PocketHabboController {
         UserInformationDao.updateAuthTicket(userInformation, ssoToken)
 
         return mapOf("ssoToken" to ssoToken)
+    }
+
+    @GetMapping("/api/user/avatars")
+    fun avatars(@SessionAttribute("userInformation") userInformation: UserInformation?): List<AvatarPocketHabbo> {
+        log.debug("Got avatar!")
+
+        if (userInformation == null) return emptyList()
+
+        val userStats = UserStatsDao.getUserStats(userInformation.id)
+
+        return listOf(AvatarPocketHabbo(
+                userInformation.id,
+                userInformation.figure,
+                userInformation.motto,
+                false,
+                true,
+                UUID.randomUUID().toString(),
+                userStats.lastOnline.toEpochSecond(OffsetDateTime.now().offset),
+                Instant.now().epochSecond
+        ))
     }
 }
