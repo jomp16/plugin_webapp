@@ -93,6 +93,7 @@ class PocketHabboController {
         // it receives uniqueId
         if (userInformation == null) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
 
+        @Suppress("UNUSED_VARIABLE")
         val uniqueId = payload["uniqueId"] ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null)
 
         return ResponseEntity.ok().body(null)
