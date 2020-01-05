@@ -80,11 +80,11 @@ class PocketHabboController {
                 userInformation.id,
                 userInformation.figure,
                 userInformation.motto,
-                false,
-                true,
-                UUID.randomUUID().toString(),
-                userStats.lastOnline.toEpochSecond(OffsetDateTime.now().offset),
-                Instant.now().epochSecond
+                banned = false,
+                buildersClubMember = true,
+                uniqueId = UUID.randomUUID().toString(),
+                lastAccess = userStats.lastOnline.toEpochSecond(OffsetDateTime.now().offset),
+                lastWebAccess = Instant.now().epochSecond
         )))
     }
 
